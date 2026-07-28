@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HK Technologies — Content Manager</title>
+  <link rel="icon" type="image/png" href="/assets/hk-logo.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/admin.css" />
+</head>
+
+<body>
+  <!-- ===================== LOGIN ===================== -->
+  <div class="login-wrap" id="login-wrap">
+    <form class="login-card" id="login-form">
+      <div class="logo"><img src="/assets/hk-logo.jpg" alt="HK" /></div>
+      <h1>Content Manager</h1>
+      <p>Sign in to edit your website</p>
+      <div class="field" style="margin-top:1.5rem">
+        <label for="password">Password</label>
+        <input type="password" id="password" autocomplete="current-password" placeholder="••••••••" />
+      </div>
+      <button class="btn btn-primary" type="submit">Sign in</button>
+      <div class="error-text" id="login-error"></div>
+    </form>
+  </div>
+
+  <!-- ===================== APP ===================== -->
+  <div class="app" id="app">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <img src="/assets/hk-logo.jpg" alt="HK" />
+        <div><b>HK Technologies</b><small>Content Manager</small></div>
+      </div>
+      <!-- nav buttons injected by admin.js -->
+      <nav id="nav" style="display:flex;flex-direction:column;gap:0.25rem"></nav>
+      <div class="spacer"></div>
+      <a class="nav-item" href="/" target="_blank">↗ View website</a>
+      <button class="nav-item" id="change-pw-btn">Change password</button>
+      <button class="nav-item" id="logout-btn">Log out</button>
+    </aside>
+
+    <main class="main">
+      <button class="btn btn-ghost btn-sm menu-btn" id="menu-btn">☰ Menu</button>
+      <div id="views"><!-- views injected by admin.js --></div>
+    </main>
+  </div>
+
+  <!-- ===================== MODAL ===================== -->
+  <div class="modal-backdrop" id="modal-backdrop">
+    <div class="modal" id="modal">
+      <h3 id="modal-title">Edit</h3>
+      <div id="modal-body"></div>
+      <div class="error-text" id="modal-error"></div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" id="modal-cancel">Cancel</button>
+        <button class="btn btn-primary inline" id="modal-save">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="/admin.js"></script>
+</body>
+
+</html>

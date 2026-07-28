@@ -1,0 +1,244 @@
+/* ============================================================
+   HK Technologies CMS — admin panel styles
+   ============================================================ */
+
+:root {
+  --bg: oklch(0.13 0.04 260);
+  --panel: oklch(0.18 0.05 260);
+  --panel2: oklch(0.22 0.05 260);
+  --fg: oklch(0.97 0.01 240);
+  --muted: oklch(0.72 0.03 250);
+  --primary: oklch(0.72 0.18 235);
+  --primary-fg: oklch(0.12 0.04 260);
+  --border: oklch(0.3 0.05 260 / 60%);
+  --danger: oklch(0.62 0.25 27);
+  --ok: oklch(0.7 0.17 150);
+  --gradient-brand: linear-gradient(135deg, oklch(0.78 0.16 220), oklch(0.55 0.2 255));
+  --radius: 0.75rem;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Inter', system-ui, -apple-system, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+a { color: var(--primary); }
+img { display: block; max-width: 100%; }
+
+/* ---------- Login ---------- */
+.login-wrap {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 24rem;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  padding: 2.5rem 2rem;
+  box-shadow: 0 20px 60px -15px oklch(0.1 0.04 260 / 60%);
+}
+
+.login-card .logo {
+  width: 3.5rem; height: 3.5rem; border-radius: 0.9rem; overflow: hidden;
+  margin: 0 auto 1.25rem; outline: 1px solid var(--border); background: var(--bg);
+}
+.login-card .logo img { width: 100%; height: 100%; object-fit: contain; }
+.login-card h1 { font-size: 1.25rem; text-align: center; }
+.login-card p { color: var(--muted); text-align: center; font-size: 0.85rem; margin-top: 0.35rem; }
+
+/* ---------- Layout ---------- */
+.app { display: none; min-height: 100vh; }
+.app.active { display: grid; grid-template-columns: 240px 1fr; }
+
+.sidebar {
+  background: var(--panel);
+  border-right: 1px solid var(--border);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.sidebar .brand {
+  display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1.25rem;
+}
+.sidebar .brand img { width: 2.2rem; height: 2.2rem; border-radius: 0.5rem; outline: 1px solid var(--border); }
+.sidebar .brand b { font-size: 0.9rem; }
+.sidebar .brand small { display: block; color: var(--muted); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.15em; }
+
+.nav-item {
+  text-align: left;
+  background: transparent;
+  border: 0;
+  color: var(--muted);
+  font: inherit;
+  padding: 0.6rem 0.8rem;
+  border-radius: 0.6rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.nav-item:hover { color: var(--fg); background: var(--panel2); }
+.nav-item.active { color: var(--fg); background: var(--panel2); font-weight: 600; }
+
+.sidebar .spacer { flex: 1; }
+
+.main { padding: 2rem; max-width: 920px; }
+.view { display: none; }
+.view.active { display: block; }
+
+.view-head { margin-bottom: 1.5rem; }
+.view-head h2 { font-size: 1.5rem; }
+.view-head p { color: var(--muted); font-size: 0.9rem; margin-top: 0.25rem; }
+
+/* ---------- Cards / forms ---------- */
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.card > h3 { font-size: 1rem; margin-bottom: 1rem; }
+
+.field { margin-bottom: 1rem; }
+.field:last-child { margin-bottom: 0; }
+.field > label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  color: var(--fg);
+}
+.field .hint { font-size: 0.72rem; color: var(--muted); margin-top: 0.3rem; }
+
+input[type="text"], textarea, input[type="password"] {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 0.55rem;
+  color: var(--fg);
+  font: inherit;
+  font-size: 0.9rem;
+  padding: 0.6rem 0.75rem;
+}
+input:focus, textarea:focus { outline: 2px solid oklch(0.72 0.18 235 / 50%); border-color: transparent; }
+textarea { resize: vertical; min-height: 4.5rem; }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  border: 1px solid transparent; border-radius: 0.6rem;
+  padding: 0.6rem 1.1rem; font: inherit; font-size: 0.875rem; font-weight: 500;
+  cursor: pointer; transition: opacity 0.15s, background 0.15s, transform 0.15s;
+}
+.btn:active { transform: translateY(1px); }
+.btn-primary { background: var(--gradient-brand); color: var(--primary-fg); width: 100%; justify-content: center; }
+.btn-primary.inline { width: auto; }
+.btn-ghost { background: var(--panel2); color: var(--fg); border-color: var(--border); }
+.btn-danger { background: transparent; color: var(--danger); border-color: oklch(0.62 0.25 27 / 50%); }
+.btn-danger:hover { background: oklch(0.62 0.25 27 / 15%); }
+.btn-sm { padding: 0.4rem 0.7rem; font-size: 0.8rem; }
+
+.row-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+/* ---------- Sub-item lists (links, stats, steps, features) ---------- */
+.list-item {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 0.6rem;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+}
+.list-item .li-head {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;
+}
+.list-item .li-head span { font-size: 0.78rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+
+/* ---------- Image picker ---------- */
+.image-picker { display: flex; gap: 0.75rem; align-items: flex-start; }
+.image-picker .preview {
+  width: 5rem; height: 5rem; border-radius: 0.5rem; overflow: hidden;
+  background: var(--bg); border: 1px solid var(--border); flex-shrink: 0;
+}
+.image-picker .preview img { width: 100%; height: 100%; object-fit: cover; }
+.image-picker .controls { flex: 1; min-width: 0; }
+
+/* ---------- Collection item cards ---------- */
+.item-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+.item-card .thumb {
+  width: 4rem; height: 4rem; border-radius: 0.5rem; overflow: hidden; flex-shrink: 0;
+  background: var(--bg); border: 1px solid var(--border);
+}
+.item-card .thumb img { width: 100%; height: 100%; object-fit: cover; }
+.item-card .meta { flex: 1; min-width: 0; }
+.item-card .meta b { display: block; }
+.item-card .meta small { color: var(--muted); display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* ---------- Toast ---------- */
+.toast {
+  position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%) translateY(2rem);
+  background: var(--panel); border: 1px solid var(--border); color: var(--fg);
+  padding: 0.75rem 1.25rem; border-radius: 0.6rem; box-shadow: 0 10px 30px oklch(0 0 0 / 40%);
+  opacity: 0; pointer-events: none; transition: all 0.3s; z-index: 100; font-size: 0.9rem;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.toast.ok { border-color: oklch(0.7 0.17 150 / 60%); }
+.toast.err { border-color: oklch(0.62 0.25 27 / 60%); }
+
+/* ---------- Modal ---------- */
+.modal-backdrop {
+  position: fixed; inset: 0; background: oklch(0 0 0 / 60%); backdrop-filter: blur(4px);
+  display: none; place-items: center; padding: 1.5rem; z-index: 90; overflow-y: auto;
+}
+.modal-backdrop.show { display: grid; }
+.modal {
+  background: var(--panel); border: 1px solid var(--border); border-radius: 1rem;
+  width: 100%; max-width: 640px; padding: 1.75rem; margin: auto;
+}
+.modal h3 { margin-bottom: 1.25rem; }
+.modal-actions { display: flex; gap: 0.75rem; margin-top: 1.5rem; }
+.modal-actions .btn { width: auto; flex: 1; justify-content: center; }
+
+.error-text { color: var(--danger); font-size: 0.85rem; margin-top: 0.75rem; min-height: 1rem; }
+
+/* ---------- Mobile ---------- */
+.menu-btn { display: none; }
+@media (max-width: 760px) {
+  .app.active { grid-template-columns: 1fr; }
+  .sidebar {
+    position: fixed; z-index: 80; width: 240px; transform: translateX(-100%);
+    transition: transform 0.25s;
+  }
+  .sidebar.open { transform: translateX(0); }
+  .menu-btn {
+    display: inline-flex; margin-bottom: 1rem;
+  }
+  .main { padding: 1.25rem; }
+  .grid2 { grid-template-columns: 1fr; }
+}
