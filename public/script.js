@@ -5,6 +5,37 @@
    behaviour and the mobile menu.
    ============================================================ */
 
+// ---------- Supabase direct access (for static hosting) ------
+// When deployed to GitHub Pages the CMS server isn't running, so
+// the site reads from Supabase directly using the public anon key.
+// Get yours from: Supabase Dashboard → Project Settings → API Keys → anon / public
+const SUPABASE_URL = "https://qeslwbafjidhndwxgbhc.supabase.co";
+const SUPABASE_ANON_KEY = "YOUR_ANON_KEY_HERE";
+
+function supabaseGet(table, query) {
+  return fetch(`${SUPABASE_URL}/rest/v1/${table}?${query}`, {
+    headers: {
+      apikey: SUPABASE_ANON_KEY,
+      Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+    },
+  }).then((r) => {
+    if (!r.ok) throw new Error(r.statusText);
+    return r.json();
+  });
+}
+
+async function fetchFromSupabase() {
+  const [settingsRows, products, services, testimonials] = await Promise.all([
+    supabaseGet("settings", "select=key,value"),
+    supabaseGet("products", "select=*&order=sort.asc,id.asc"),
+    supabaseGet("services", "select=*&order=sort.asc,id.asc"),
+    supabaseGet("testimonials", "select=*&order=sort.asc,id.asc"),
+  ]);
+  const settings = {};
+  for (const r of settingsRows) if (r.key !== "admin") settings[r.key] = r.value;
+  return { settings, products, services, testimonials };
+}
+
 // Small helpers ------------------------------------------------
 const $ = (id) => document.getElementById(id);
 
@@ -33,14 +64,20 @@ function isExternal(href) {
 // ------------------------------------------------------------
 async function load() {
   let data;
+
+  // When served by the CMS server, use its API
   try {
     const res = await fetch("/api/content");
-    data = await res.json();
+    if (res.ok) { data = await res.json(); return render(data); }
+  } catch {}
+
+  // Static hosting (GitHub Pages): call Supabase directly
+  try {
+    data = await fetchFromSupabase();
+    render(data);
   } catch (e) {
     console.error("Could not load site content", e);
-    return;
   }
-  render(data);
 }
 
 function render(data) {
